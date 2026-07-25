@@ -47,3 +47,22 @@
 .download-thumb-only img{display:block;width:100%;height:100%;object-fit:cover}
 .download-thumb-only:hover,.download-thumb-only.is-selected{border-color:var(--accent);outline:2px solid color-mix(in srgb,var(--accent) 55%,transparent)}
 .download-thumb-only .item-download{position:absolute;right:5px;bottom:5px;margin:0;background:rgba(9,10,14,.82);backdrop-filter:blur(4px)}
+
+/* 업로드/확인 드래그 영역 크기 통일 */
+.upload-card .drop-zone,
+.inspect-card .inspect-picker {
+  min-height: 112px;
+  height: 112px;
+  padding: 12px 14px;
+  border-radius: 14px;
+}
+
+/* 업로드/확인 이미지 삽입 버튼 크기 통일 */
+.upload-card .drop-zone .primary-button,
+.upload-card .drop-zone .secondary-button,
+.inspect-card .inspect-picker .secondary-button {
+  min-height: 34px;
+  padding: .4rem .68rem;
+  font-size: .72rem;
+  line-height: 1;
+}
