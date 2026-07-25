@@ -189,3 +189,91 @@
 .upload-card .drop-zone {
   margin-bottom: 0;
 }
+/* v9: compact upload/check controls, compact ZIP action, regular thumbnail grid */
+.three-card-grid .drop-zone,
+.three-card-grid .inspect-picker {
+  min-height: 92px;
+  height: 92px;
+  margin-top: 12px;
+  padding: 10px 12px;
+  gap: 6px;
+  align-content: center;
+  justify-items: center;
+}
+
+.three-card-grid .drop-zone > strong,
+.three-card-grid .inspect-picker > strong {
+  font-size: .78rem;
+  line-height: 1;
+}
+
+.three-card-grid .drop-zone .button-row,
+.three-card-grid .inspect-picker .button-row {
+  width: auto;
+  margin: 2px 0 0;
+  flex-wrap: nowrap;
+  justify-content: center;
+  gap: 6px;
+}
+
+.three-card-grid .drop-zone .primary-button,
+.three-card-grid .drop-zone .secondary-button,
+.three-card-grid .inspect-picker .secondary-button {
+  min-height: 28px;
+  padding: .22rem .52rem;
+  font-size: .66rem;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.download-card .download-actions {
+  min-height: 0;
+  margin: 12px 0 10px;
+  flex-wrap: nowrap;
+}
+
+.download-card .compact-download-button {
+  min-height: 30px;
+  padding: .28rem .65rem;
+  font-size: .7rem;
+  white-space: nowrap;
+}
+
+/* restore a normal non-overlapping thumbnail grid */
+.upload-card .thumb-list,
+.download-card .download-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(72px, 1fr));
+  grid-auto-rows: 72px;
+  align-content: start;
+  place-items: stretch;
+  gap: 8px;
+  height: 250px;
+  min-height: 250px;
+  max-height: 250px;
+  margin-top: 12px;
+  padding: 10px;
+  overflow-y: auto;
+}
+
+.upload-card .thumb-list .empty-state,
+.download-card .download-list .empty-state {
+  grid-column: 1 / -1;
+  grid-row: 1 / -1;
+  align-self: center;
+  justify-self: center;
+}
+
+.upload-thumb-only,
+.download-thumb-only {
+  width: 100%;
+  height: 72px;
+  min-height: 72px;
+  aspect-ratio: auto;
+}
+
+@media (max-width: 560px) {
+  .download-actions > * {
+    width: auto;
+  }
+}
