@@ -38,3 +38,12 @@
 .upload-thumb-only{display:grid;place-items:center;overflow:hidden;aspect-ratio:1;border:1px solid var(--line);border-radius:12px;background:var(--surface-3)}
 .upload-thumb-only img{display:block;width:100%;height:100%;object-fit:cover}
 .upload-card .thumb-list:has(.upload-thumb-only){grid-template-columns:repeat(auto-fill,minmax(72px,1fr));align-content:start}
+
+/* v7: requested text and thumbnail-only layout changes */
+.upload-header-actions{display:flex;align-items:center;gap:6px}
+.upload-header-actions .compact-action-button{min-height:30px;padding:.32rem .62rem;font-size:.68rem}
+.download-card .download-list{grid-template-columns:repeat(auto-fill,minmax(72px,1fr));align-content:start;min-height:92px;max-height:250px;padding:10px}
+.download-thumb-only{position:relative;display:grid;place-items:center;overflow:hidden;aspect-ratio:1;width:100%;padding:0;border:1px solid var(--line);border-radius:12px;background:var(--surface-3);color:var(--text)}
+.download-thumb-only img{display:block;width:100%;height:100%;object-fit:cover}
+.download-thumb-only:hover,.download-thumb-only.is-selected{border-color:var(--accent);outline:2px solid color-mix(in srgb,var(--accent) 55%,transparent)}
+.download-thumb-only .item-download{position:absolute;right:5px;bottom:5px;margin:0;background:rgba(9,10,14,.82);backdrop-filter:blur(4px)}

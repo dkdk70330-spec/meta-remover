@@ -34,16 +34,19 @@
             <p class="section-kicker">UPLOAD</p>
             <h2 id="uploadTitle">업로드</h2>
           </div>
-          <button id="clearUploadButton" class="ghost-button" type="button" disabled>전체 비우기</button>
+          <div class="upload-header-actions">
+            <button id="removeMetadataButton" class="primary-button compact-action-button" type="button" disabled>EXIF 제거</button>
+            <button id="clearUploadButton" class="ghost-button" type="button" disabled>전체 비우기</button>
+          </div>
         </header>
 
         <div id="dropZone" class="drop-zone" tabindex="0" role="button" aria-label="PNG 파일을 끌어놓거나 선택">
-          <strong>PNG를 여기에 올리세요</strong>
+          <strong>이미지 드래그</strong>
           <span>파일 다중선택 · 폴더선택 · 드래그 · 클립보드 붙여넣기</span>
           <div class="button-row">
-            <label id="selectFilesButton" class="primary-button file-trigger" for="fileInput">파일 선택</label>
-            <label id="selectFolderButton" class="secondary-button file-trigger" for="folderInput">폴더 선택</label>
-            <button id="pasteUploadButton" class="secondary-button" type="button">클립보드 읽기</button>
+            <label id="selectFilesButton" class="primary-button file-trigger" for="fileInput">파일</label>
+            <label id="selectFolderButton" class="secondary-button file-trigger" for="folderInput">폴더</label>
+            <button id="pasteUploadButton" class="secondary-button" type="button">붙여넣기</button>
           </div>
           <input id="fileInput" class="visually-hidden" type="file" accept="image/png,.png" multiple>
           <input id="folderInput" class="visually-hidden" type="file" accept="image/png,.png" webkitdirectory directory multiple>
@@ -53,9 +56,6 @@
           <p class="empty-state">아직 업로드된 PNG가 없습니다.</p>
         </div>
 
-        <div class="card-actions">
-          <button id="removeMetadataButton" class="primary-button compact-action-button" type="button" disabled>EXIF 제거</button>
-        </div>
 
         <div class="status-block">
           <div class="status-line"><span>업로드·제거 상태</span><output id="uploadStatus">대기 중</output></div>
@@ -99,8 +99,8 @@
       <div id="inspectDropZone" class="inspect-picker" tabindex="0">
         <span>다운로드 카드의 이미지를 선택하거나, 여기로 PNG를 드래그·붙여넣기 하세요.</span>
         <div class="button-row">
-          <label class="secondary-button" for="inspectFileInput">컴퓨터에서 1개 선택</label>
-          <button id="inspectPasteButton" class="secondary-button" type="button">클립보드 읽기</button>
+          <label class="secondary-button" for="inspectFileInput">파일</label>
+          <button id="inspectPasteButton" class="secondary-button" type="button">붙여넣기</button>
         </div>
         <input id="inspectFileInput" class="visually-hidden" type="file" accept="image/png,.png">
       </div>
