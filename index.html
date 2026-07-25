@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="dark">
+  <title>PNG 메타데이터 · 스텔스 제거기</title>
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+  <header class="site-header">
+    <p class="eyebrow">LOCAL PNG SANITIZER</p>
+    <h1>PNG 메타데이터 · 스텔스 제거기</h1>
+    <p class="lead">PNG 부가 청크, IEND 뒤 추가 데이터, 알파 채널 LSB 기반 스텔스 정보를 브라우저 안에서 검사하고 제거합니다.</p>
+  </header>
+
+  <main class="app-shell">
+    <section class="notice-card card" aria-labelledby="noticeTitle">
+      <div>
+        <p class="section-kicker">안내</p>
+        <h2 id="noticeTitle">파일은 서버로 전송되지 않습니다</h2>
+      </div>
+      <div class="notice-grid">
+        <p><strong>강력 제거</strong><span>이미지를 새 PNG로 다시 만들고 모든 픽셀의 알파값을 255로 고정합니다.</span></p>
+        <p><strong>제거 대상</strong><span>EXIF·텍스트 청크·XMP·IEND 뒤 데이터·NovelAI 계열 알파 LSB 스텔스 정보</span></p>
+        <p class="warning"><strong>주의</strong><span>투명 PNG는 불투명 PNG로 바뀝니다. 원본 파일은 별도로 보관하세요.</span></p>
+      </div>
+    </section>
+
+    <section class="action-grid">
+      <article class="upload-card card" aria-labelledby="uploadTitle">
+        <header class="card-heading">
+          <div>
+            <p class="section-kicker">UPLOAD</p>
+            <h2 id="uploadTitle">PNG 추가</h2>
+          </div>
+          <button id="clearButton" class="ghost-button" type="button" disabled>전체 비우기</button>
+        </header>
+
+        <div id="dropZone" class="drop-zone" tabindex="0" role="button" aria-label="PNG 파일을 끌어놓거나 선택">
+          <strong>PNG를 여기에 끌어놓으세요</strong>
+          <span>파일 다중선택 · 폴더선택 · 드래그 · 클립보드 붙여넣기</span>
+          <div class="button-row">
+            <label class="primary-button" for="fileInput">파일 선택</label>
+            <label class="secondary-button" for="folderInput">폴더 선택</label>
+            <button id="pasteButton" class="secondary-button" type="button">클립보드 읽기</button>
+          </div>
+          <input id="fileInput" class="visually-hidden" type="file" accept="image/png,.png" multiple>
+          <input id="folderInput" class="visually-hidden" type="file" accept="image/png,.png" webkitdirectory directory multiple>
+        </div>
+
+        <div class="status-block">
+          <div class="status-line"><span>업로드·검사 상태</span><output id="uploadStatus">대기 중</output></div>
+          <progress id="uploadProgress" max="100" value="0"></progress>
+        </div>
+      </article>
+
+      <article class="download-card card" aria-labelledby="downloadTitle">
+        <header class="card-heading">
+          <div>
+            <p class="section-kicker">DOWNLOAD</p>
+            <h2 id="downloadTitle">정제 파일 저장</h2>
+          </div>
+          <span id="readyCount" class="count-badge">0개 준비</span>
+        </header>
+
+        <div class="download-actions">
+          <button id="downloadSelectedButton" class="secondary-button" type="button" disabled>선택 이미지 다운로드</button>
+          <button id="downloadZipButton" class="primary-button" type="button" disabled>전체 ZIP 다운로드</button>
+        </div>
+        <p class="helper">폴더에서 가져온 파일은 ZIP 안에서 상대 경로를 유지합니다.</p>
+
+        <div class="status-block">
+          <div class="status-line"><span>다운로드 상태</span><output id="downloadStatus">대기 중</output></div>
+          <progress id="downloadProgress" max="100" value="0"></progress>
+        </div>
+      </article>
+    </section>
+
+    <section class="workspace card" aria-labelledby="workspaceTitle">
+      <header class="workspace-heading">
+        <div>
+          <p class="section-kicker">INSPECT</p>
+          <h2 id="workspaceTitle">파일과 메타데이터 확인</h2>
+        </div>
+        <p id="summaryText">PNG를 추가하면 원본 검사 결과와 변환 결과가 표시됩니다.</p>
+      </header>
+
+      <div class="workspace-grid">
+        <div class="file-panel">
+          <div class="file-panel-head">
+            <strong>이미지 목록</strong>
+            <span id="fileCount">0개</span>
+          </div>
+          <div id="fileList" class="file-list" role="listbox" aria-label="PNG 이미지 목록">
+            <div class="empty-state">아직 추가된 PNG가 없습니다.</div>
+          </div>
+        </div>
+
+        <div class="inspector-panel">
+          <div class="inspector-toolbar">
+            <div>
+              <strong id="selectedName">선택된 이미지 없음</strong>
+              <span id="selectedState">목록에서 이미지를 선택하세요.</span>
+            </div>
+            <div class="segmented" role="group" aria-label="검사 대상 선택">
+              <button id="originalTab" type="button" class="is-active" disabled>원본</button>
+              <button id="convertedTab" type="button" disabled>변환본</button>
+            </div>
+          </div>
+
+          <div class="inspector-body">
+            <div class="preview-wrap">
+              <div class="checkerboard">
+                <img id="previewImage" alt="선택한 PNG 미리보기" hidden>
+                <span id="previewEmpty">이미지 미리보기</span>
+              </div>
+              <dl id="imageFacts" class="image-facts"></dl>
+            </div>
+
+            <div class="metadata-wrap">
+              <div class="metadata-heading">
+                <strong>메타데이터 검사 결과</strong>
+                <span id="metadataBadge" class="result-badge is-neutral">대기</span>
+              </div>
+              <div id="metadataOutput" class="metadata-output">
+                <p class="empty-state">이미지를 선택하면 PNG 청크, 추가 데이터, 스텔스 정보가 여기에 표시됩니다.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <p>모든 처리는 현재 브라우저 탭 안에서만 이루어집니다.</p>
+  </footer>
+
+  <script src="./app.js"></script>
+</body>
+</html>
