@@ -73,10 +73,30 @@
   async function createStoredZip(files,onProgress){const encoder=new TextEncoder(),locals=[],centrals=[];let offset=0;const stamp=dosDateTime();for(let i=0;i<files.length;i++){const file=files[i],nameBytes=encoder.encode(file.name.replace(/^\/+/,"")),data=new Uint8Array(await file.blob.arrayBuffer()),crc=crc32(data),local=new Uint8Array(30+nameBytes.length+data.length),lv=new DataView(local.buffer);lv.setUint32(0,0x04034b50,true);lv.setUint16(4,20,true);lv.setUint16(6,0x0800,true);lv.setUint16(8,0,true);lv.setUint16(10,stamp.time,true);lv.setUint16(12,stamp.day,true);lv.setUint32(14,crc,true);lv.setUint32(18,data.length,true);lv.setUint32(22,data.length,true);lv.setUint16(26,nameBytes.length,true);local.set(nameBytes,30);local.set(data,30+nameBytes.length);locals.push(local);const central=new Uint8Array(46+nameBytes.length),cv=new DataView(central.buffer);cv.setUint32(0,0x02014b50,true);cv.setUint16(4,20,true);cv.setUint16(6,20,true);cv.setUint16(8,0x0800,true);cv.setUint16(10,0,true);cv.setUint16(12,stamp.time,true);cv.setUint16(14,stamp.day,true);cv.setUint32(16,crc,true);cv.setUint32(20,data.length,true);cv.setUint32(24,data.length,true);cv.setUint16(28,nameBytes.length,true);cv.setUint32(42,offset,true);central.set(nameBytes,46);centrals.push(central);offset+=local.length;onProgress?.(Math.round(((i+1)/files.length)*90));}const centralSize=centrals.reduce((s,b)=>s+b.length,0),end=new Uint8Array(22),ev=new DataView(end.buffer);ev.setUint32(0,0x06054b50,true);ev.setUint16(8,files.length,true);ev.setUint16(10,files.length,true);ev.setUint32(12,centralSize,true);ev.setUint32(16,offset,true);onProgress?.(100);return new Blob([...locals,...centrals,end],{type:"application/zip"});}
   async function downloadAll(){if(!state.ready.length)return;el.downloadProgress.value=0;el.downloadStatus.textContent="ZIP 생성 중";try{const files=state.ready.map(item=>{const parts=(item.relativePath||item.name).split(/[\\/]/);parts[parts.length-1]=outputName(parts[parts.length-1]);return{name:parts.join("/"),blob:item.blob};});const zip=await createStoredZip(files,value=>{el.downloadProgress.value=value;el.downloadStatus.textContent=`ZIP 생성 ${value}%`;});downloadBlob(zip,`png-cleaned-${new Date().toISOString().slice(0,10)}.zip`);el.downloadStatus.textContent=`${state.ready.length}개 ZIP 다운로드 완료`;}catch(error){el.downloadStatus.textContent=`ZIP 실패: ${error.message}`;}}
 
+  function updateControls(){
+    const hasUploads = state.uploads.length > 0;
+    const hasReady = state.ready.length > 0;
+    const hasSelectedReady = state.ready.some(item => item.id === state.selectedReadyId);
+
+    el.removeMetadataButton.disabled = state.busy || !hasUploads;
+    el.clearUploadButton.disabled = state.busy || !hasUploads;
+    el.fileInput.disabled = state.busy;
+    el.folderInput.disabled = state.busy;
+    el.pasteUploadButton.disabled = state.busy;
+    el.downloadSelectedButton.disabled = !hasSelectedReady;
+    el.downloadZipButton.disabled = !hasReady;
+  }
+
+  function render(){
+    renderUploads();
+    renderDownloads();
+    renderInspect();
+    updateControls();
+  }
+
   async function readClipboardPngs(){if(!navigator.clipboard?.read)throw new Error("클립보드 읽기를 지원하지 않습니다. Ctrl+V를 사용하세요.");const clipboard=await navigator.clipboard.read(),files=[];for(const item of clipboard)for(const type of item.types)if(type==="image/png"){const blob=await item.getType(type);files.push(new File([blob],`clipboard-${Date.now()}.png`,{type}));}return files;}
 
-  el.selectFilesButton.addEventListener("click",()=>el.fileInput.click());
-  el.selectFolderButton.addEventListener("click",()=>el.folderInput.click());
+  el.dropZone.addEventListener("click",e=>{if(!e.target.closest("button,label,input"))el.fileInput.click();});
   el.fileInput.addEventListener("change",e=>{addUploadFiles(e.target.files);e.target.value="";});
   el.folderInput.addEventListener("change",e=>{addUploadFiles(e.target.files);e.target.value="";});
   ["dragenter","dragover"].forEach(t=>el.dropZone.addEventListener(t,e=>{e.preventDefault();el.dropZone.classList.add("is-dragging");}));

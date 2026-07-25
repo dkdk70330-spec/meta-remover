@@ -27,7 +27,7 @@
       </div>
     </section>
 
-    <section class="action-grid">
+    <section class="action-grid three-card-grid">
       <article class="upload-card card" aria-labelledby="uploadTitle">
         <header class="card-heading">
           <div>
@@ -41,8 +41,8 @@
           <strong>PNG를 여기에 올리세요</strong>
           <span>파일 다중선택 · 폴더선택 · 드래그 · 클립보드 붙여넣기</span>
           <div class="button-row">
-            <button id="selectFilesButton" class="primary-button" type="button">파일 선택</button>
-            <button id="selectFolderButton" class="secondary-button" type="button">폴더 선택</button>
+            <label id="selectFilesButton" class="primary-button file-trigger" for="fileInput">파일 선택</label>
+            <label id="selectFolderButton" class="secondary-button file-trigger" for="folderInput">폴더 선택</label>
             <button id="pasteUploadButton" class="secondary-button" type="button">클립보드 읽기</button>
           </div>
           <input id="fileInput" class="visually-hidden" type="file" accept="image/png,.png" multiple>
@@ -86,9 +86,8 @@
           <progress id="downloadProgress" max="100" value="0"></progress>
         </div>
       </article>
-    </section>
 
-    <section class="inspect-card card" aria-labelledby="inspectTitle">
+      <article class="inspect-card card" aria-labelledby="inspectTitle">
       <header class="inspect-heading">
         <div>
           <p class="section-kicker">CHECK</p>
@@ -112,6 +111,7 @@
           <span id="inspectImageEmpty">이미지 미리보기</span>
         </div>
       </div>
+      </article>
     </section>
   </main>
 

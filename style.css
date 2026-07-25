@@ -24,3 +24,17 @@
 .inspect-preview-only .checkerboard{min-height:180px;max-height:320px;border-radius:10px}
 .inspect-preview-only .checkerboard img{max-height:300px}
 @media(max-width:700px){.inspect-picker{grid-template-columns:1fr}.inspect-picker .button-row{justify-content:flex-start}.inspect-preview-only .checkerboard{min-height:160px}}
+
+/* Three-card compact workspace */
+.three-card-grid{grid-template-columns:minmax(0,1fr) minmax(0,1fr) minmax(280px,.9fr);align-items:start}
+.three-card-grid .upload-card,.three-card-grid .download-card,.three-card-grid .inspect-card{min-width:0;height:100%}
+.file-trigger{cursor:pointer;user-select:none}
+.three-card-grid .inspect-picker{grid-template-columns:1fr;place-items:stretch;margin-top:12px;padding:14px;text-align:center}
+.three-card-grid .inspect-picker .button-row{justify-content:center}
+.three-card-grid .checkerboard{min-height:220px;max-height:360px;margin-top:10px}
+.three-card-grid .checkerboard img{max-height:340px}
+@media(max-width:1080px){.three-card-grid{grid-template-columns:1fr 1fr}.three-card-grid .inspect-card{grid-column:1/-1}}
+@media(max-width:720px){.three-card-grid{grid-template-columns:1fr}.three-card-grid .inspect-card{grid-column:auto}}
+.upload-thumb-only{display:grid;place-items:center;overflow:hidden;aspect-ratio:1;border:1px solid var(--line);border-radius:12px;background:var(--surface-3)}
+.upload-thumb-only img{display:block;width:100%;height:100%;object-fit:cover}
+.upload-card .thumb-list:has(.upload-thumb-only){grid-template-columns:repeat(auto-fill,minmax(72px,1fr));align-content:start}
