@@ -188,7 +188,6 @@
 /* 업로드 드롭존 아래 간격을 다운로드 버튼 영역과 맞춤 */
 .upload-card .drop-zone {
   margin-bottom: 0;
-<<<<<<< HEAD
 }
 /* v9: compact upload/check controls, compact ZIP action, regular thumbnail grid */
 .three-card-grid .drop-zone,
@@ -337,6 +336,3 @@
 .download-header-actions .compact-download-button {
   white-space: nowrap;
 }
-=======
-}
->>>>>>> parent of 4e16143 (7-6)
