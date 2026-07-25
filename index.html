@@ -41,8 +41,8 @@
           <strong>PNG를 여기에 올리세요</strong>
           <span>파일 다중선택 · 폴더선택 · 드래그 · 클립보드 붙여넣기</span>
           <div class="button-row">
-            <label class="primary-button" for="fileInput">파일 선택</label>
-            <label class="secondary-button" for="folderInput">폴더 선택</label>
+            <button id="selectFilesButton" class="primary-button" type="button">파일 선택</button>
+            <button id="selectFolderButton" class="secondary-button" type="button">폴더 선택</button>
             <button id="pasteUploadButton" class="secondary-button" type="button">클립보드 읽기</button>
           </div>
           <input id="fileInput" class="visually-hidden" type="file" accept="image/png,.png" multiple>
@@ -54,7 +54,7 @@
         </div>
 
         <div class="card-actions">
-          <button id="removeMetadataButton" class="primary-button wide-button" type="button" disabled>메타데이터 및 스텔스 정보 제거</button>
+          <button id="removeMetadataButton" class="primary-button compact-action-button" type="button" disabled>EXIF 제거</button>
         </div>
 
         <div class="status-block">

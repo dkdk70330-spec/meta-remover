@@ -2,3 +2,25 @@
 
 .inspect-preview-only{margin-top:16px;padding:16px;border:1px solid var(--line);border-radius:18px;background:var(--surface-2)}
 .inspect-preview-only .checkerboard{min-height:420px}
+
+/* v4: requested compact layout and upload thumbnails */
+.compact-action-button{min-height:34px;padding:.38rem .72rem;font-size:.74rem}
+.card-actions{justify-content:flex-end}
+.upload-card .thumb-list{grid-template-columns:repeat(auto-fill,minmax(72px,1fr));align-content:start;min-height:92px;max-height:250px;padding:10px}
+.upload-thumb-only{position:relative;overflow:hidden;aspect-ratio:1;border:1px solid var(--line);border-radius:12px;background:var(--surface-3)}
+.upload-thumb-only img{display:block;width:100%;height:100%;object-fit:cover}
+.upload-thumb-only.is-processing{outline:2px solid var(--warning)}
+.upload-thumb-only.is-error{outline:2px solid var(--danger)}
+.upload-thumb-only.is-done{outline:2px solid var(--success)}
+.inspect-card{padding:14px}
+.inspect-heading{min-height:32px}
+.inspect-heading .section-kicker{margin-bottom:.12rem}
+.inspect-heading h2{font-size:1.15rem}
+.inspect-result{padding:.25rem .5rem;font-size:.64rem}
+.inspect-picker{grid-template-columns:minmax(0,1fr) auto;margin-top:10px;padding:12px 14px;border-radius:14px}
+.inspect-picker .button-row{margin:0}
+.inspect-picker .secondary-button{min-height:34px;padding:.4rem .68rem;font-size:.72rem}
+.inspect-preview-only{margin-top:10px;padding:10px;border-radius:14px}
+.inspect-preview-only .checkerboard{min-height:180px;max-height:320px;border-radius:10px}
+.inspect-preview-only .checkerboard img{max-height:300px}
+@media(max-width:700px){.inspect-picker{grid-template-columns:1fr}.inspect-picker .button-row{justify-content:flex-start}.inspect-preview-only .checkerboard{min-height:160px}}
