@@ -47,3 +47,61 @@
 .download-thumb-only img{display:block;width:100%;height:100%;object-fit:cover}
 .download-thumb-only:hover,.download-thumb-only.is-selected{border-color:var(--accent);outline:2px solid color-mix(in srgb,var(--accent) 55%,transparent)}
 .download-thumb-only .item-download{position:absolute;right:5px;bottom:5px;margin:0;background:rgba(9,10,14,.82);backdrop-filter:blur(4px)}
+
+/* v8: align the three workspace sections without changing their functions */
+.three-card-grid{
+  align-items:stretch;
+}
+.three-card-grid > .card{
+  display:flex;
+  min-height:0;
+  flex-direction:column;
+}
+.three-card-grid .card-heading,
+.three-card-grid .inspect-heading{
+  min-height:62px;
+  align-items:flex-start;
+}
+.three-card-grid .drop-zone,
+.three-card-grid .inspect-picker{
+  box-sizing:border-box;
+  min-height:190px;
+  height:190px;
+  margin-top:16px;
+}
+.three-card-grid .upload-card .thumb-list,
+.three-card-grid .download-card .download-list,
+.three-card-grid .inspect-preview-only{
+  box-sizing:border-box;
+  min-height:250px;
+  height:250px;
+  max-height:250px;
+  margin-top:16px;
+}
+.three-card-grid .inspect-preview-only{
+  padding:10px;
+}
+.three-card-grid .inspect-preview-only .checkerboard{
+  width:100%;
+  min-height:228px;
+  height:228px;
+  max-height:228px;
+  margin:0;
+}
+.three-card-grid .inspect-preview-only .checkerboard img{
+  max-height:228px;
+}
+.three-card-grid .status-block{
+  margin-top:auto;
+  padding-top:16px;
+}
+.three-card-grid .download-actions{
+  margin-top:16px;
+}
+@media(max-width:1080px){
+  .three-card-grid .drop-zone,
+  .three-card-grid .inspect-picker{
+    height:auto;
+    min-height:150px;
+  }
+}
