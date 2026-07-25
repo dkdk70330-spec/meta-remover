@@ -154,3 +154,38 @@
   max-height: 100%;
   object-fit: contain;
 }
+
+/* 업로드/다운로드 그리드 높이 통일 */
+.upload-card .thumb-list,
+.download-card .download-list {
+  height: 250px;
+  min-height: 250px;
+  max-height: 250px;
+  overflow-y: auto;
+}
+
+/* 두 카드의 내부 흐름 통일 */
+.upload-card,
+.download-card {
+  display: flex;
+  flex-direction: column;
+}
+
+/* 그리드 위쪽 여백 통일 */
+.upload-card .thumb-list,
+.download-card .download-list {
+  margin-top: 16px;
+}
+
+/* 다운로드 버튼 영역 높이 고정 */
+.download-card .download-actions {
+  min-height: 44px;
+  margin-top: 16px;
+  margin-bottom: 16px;
+  align-items: center;
+}
+
+/* 업로드 드롭존 아래 간격을 다운로드 버튼 영역과 맞춤 */
+.upload-card .drop-zone {
+  margin-bottom: 0;
+}
