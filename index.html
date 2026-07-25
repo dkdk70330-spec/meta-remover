@@ -106,23 +106,10 @@
         <input id="inspectFileInput" class="visually-hidden" type="file" accept="image/png,.png">
       </div>
 
-      <div class="inspect-grid">
-        <div class="inspect-image-panel">
-          <div class="checkerboard">
-            <img id="inspectImage" alt="검사 이미지 미리보기" hidden>
-            <span id="inspectImageEmpty">이미지 미리보기</span>
-          </div>
-          <dl id="inspectFacts" class="image-facts"></dl>
-        </div>
-
-        <div class="inspect-data-panel">
-          <div class="metadata-heading">
-            <strong id="inspectFileName">선택된 이미지 없음</strong>
-            <span id="inspectBadge" class="result-badge is-neutral">대기</span>
-          </div>
-          <div id="inspectOutput" class="metadata-output">
-            <p class="empty-state">검사할 PNG를 선택하면 메타데이터와 스텔스 정보를 표시합니다.</p>
-          </div>
+      <div class="inspect-preview-only">
+        <div class="checkerboard">
+          <img id="inspectImage" alt="검사 이미지 미리보기" hidden>
+          <span id="inspectImageEmpty">이미지 미리보기</span>
         </div>
       </div>
     </section>
