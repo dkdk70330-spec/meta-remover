@@ -71,15 +71,15 @@
           </div>
           <span id="readyCount" class="count-badge">0개 준비</span>
         </header>
+        <div class="download-actions">
+          <button id="downloadSelectedButton" class="secondary-button" type="button" disabled>선택 이미지 다운로드</button>
+          <button id="downloadZipButton" class="primary-button" type="button" disabled>전체 ZIP 다운로드</button>
+        </div>
 
         <div id="downloadList" class="thumb-list download-list" aria-label="변환 완료 이미지 목록">
           <p class="empty-state">제거가 완료되면 여기에 변환 이미지가 표시됩니다.</p>
         </div>
 
-        <div class="download-actions">
-          <button id="downloadSelectedButton" class="secondary-button" type="button" disabled>선택 이미지 다운로드</button>
-          <button id="downloadZipButton" class="primary-button" type="button" disabled>전체 ZIP 다운로드</button>
-        </div>
 
         <div class="status-block">
           <div class="status-line"><span>다운로드 상태</span><output id="downloadStatus">대기 중</output></div>

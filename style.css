@@ -48,21 +48,67 @@
 .download-thumb-only:hover,.download-thumb-only.is-selected{border-color:var(--accent);outline:2px solid color-mix(in srgb,var(--accent) 55%,transparent)}
 .download-thumb-only .item-download{position:absolute;right:5px;bottom:5px;margin:0;background:rgba(9,10,14,.82);backdrop-filter:blur(4px)}
 
-/* 업로드/확인 드래그 영역 크기 통일 */
+/* 업로드 / 확인 입력 영역 높이와 내부 정렬 통일 */
 .upload-card .drop-zone,
 .inspect-card .inspect-picker {
-  min-height: 112px;
-  height: 112px;
-  padding: 12px 14px;
+  min-height: 132px;
+  height: auto;
+  padding: 14px;
   border-radius: 14px;
+  align-content: center;
+  justify-items: center;
+  gap: 8px;
 }
 
-/* 업로드/확인 이미지 삽입 버튼 크기 통일 */
+/* 확인 영역은 기존 2열 설정을 해제 */
+.inspect-card .inspect-picker {
+  grid-template-columns: 1fr;
+  text-align: center;
+}
+
+/* 버튼 줄이 영역 안에 유지되도록 */
+.upload-card .drop-zone .button-row,
+.inspect-card .inspect-picker .button-row {
+  width: 100%;
+  margin-top: 4px;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+}
+
+/* 업로드 / 확인 버튼 크기 통일 */
 .upload-card .drop-zone .primary-button,
 .upload-card .drop-zone .secondary-button,
 .inspect-card .inspect-picker .secondary-button {
   min-height: 34px;
-  padding: .4rem .68rem;
+  padding: .38rem .68rem;
   font-size: .72rem;
   line-height: 1;
+}
+
+/* 업로드 / 다운로드 빈 상태 중앙 정렬 */
+.upload-card .thumb-list,
+.download-card .download-list {
+  place-items: center;
+}
+
+.upload-card .thumb-list .empty-state,
+.download-card .download-list .empty-state {
+  grid-column: 1 / -1;
+  width: 100%;
+  margin: 0;
+  align-self: center;
+  justify-self: center;
+  text-align: center;
+  line-height: 1.6;
+}
+
+
+.download-card .download-actions {
+  margin-top: 16px;
+  margin-bottom: 12px;
+}
+
+.download-card .download-list {
+  margin-top: 0;
 }
