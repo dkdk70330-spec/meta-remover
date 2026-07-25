@@ -336,3 +336,51 @@
 .download-header-actions .compact-download-button {
   white-space: nowrap;
 }
+
+/* 카드 내부 영역이 남은 세로 공간을 전부 사용 */
+.upload-card,
+.download-card,
+.inspect-card {
+  display: flex;
+  flex-direction: column;
+}
+
+/* 업로드·다운로드 썸네일 창을 아래 상태바 전까지 늘림 */
+.upload-card .thumb-list,
+.download-card .download-list {
+  flex: 1;
+  height: auto;
+  min-height: 0;
+  max-height: none;
+}
+
+/* 상태바는 아래에 고정 */
+.upload-card .status-block,
+.download-card .status-block {
+  flex: 0 0 auto;
+}
+
+/* 확인 이미지 카드가 남은 공간을 전부 사용 */
+.inspect-card .inspect-preview-only {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  overflow: hidden;
+}
+
+/* 확인 이미지 영역을 내부 카드 끝까지 늘림 */
+.inspect-card .inspect-preview-only .checkerboard {
+  flex: 1;
+  width: 100%;
+  height: auto;
+  min-height: 0;
+  max-height: none;
+  margin: 0;
+}
+
+/* 이미지는 영역 안에서 비율 유지 */
+.inspect-card .inspect-preview-only .checkerboard img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
