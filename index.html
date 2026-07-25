@@ -41,7 +41,8 @@
         </header>
 
         <div id="dropZone" class="drop-zone" tabindex="0" role="button" aria-label="PNG 파일을 끌어놓거나 선택">
-          <strong>드래그</strong>
+          <strong>이미지 드래그</strong>
+          <span>파일 다중선택 · 폴더선택 · 드래그 · 클립보드 붙여넣기</span>
           <div class="button-row">
             <label id="selectFilesButton" class="primary-button file-trigger" for="fileInput">파일</label>
             <label id="selectFolderButton" class="secondary-button file-trigger" for="folderInput">폴더</label>
@@ -68,14 +69,16 @@
             <p class="section-kicker">DOWNLOAD</p>
             <h2 id="downloadTitle">다운로드</h2>
           </div>
-          <div class="download-header-actions">
-            <span id="readyCount" class="count-badge">0개 준비</span>
-            <button id="downloadZipButton" class="primary-button compact-download-button" type="button" disabled>ZIP 다운</button>
-          </div>
+          <span id="readyCount" class="count-badge">0개 준비</span>
         </header>
 
         <div id="downloadList" class="thumb-list download-list" aria-label="변환 완료 이미지 목록">
           <p class="empty-state">제거가 완료되면 여기에 변환 이미지가 표시됩니다.</p>
+        </div>
+
+        <div class="download-actions">
+          <button id="downloadSelectedButton" class="secondary-button" type="button" disabled>선택 이미지 다운로드</button>
+          <button id="downloadZipButton" class="primary-button" type="button" disabled>전체 ZIP 다운로드</button>
         </div>
 
         <div class="status-block">
@@ -94,7 +97,7 @@
       </header>
 
       <div id="inspectDropZone" class="inspect-picker" tabindex="0">
-        <strong>드래그</strong>
+        <span>다운로드 카드의 이미지를 선택하거나, 여기로 PNG를 드래그·붙여넣기 하세요.</span>
         <div class="button-row">
           <label class="secondary-button" for="inspectFileInput">파일</label>
           <button id="inspectPasteButton" class="secondary-button" type="button">붙여넣기</button>

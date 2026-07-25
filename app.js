@@ -9,7 +9,7 @@
   const el = {
     dropZone: $("#dropZone"), fileInput: $("#fileInput"), folderInput: $("#folderInput"), selectFilesButton: $("#selectFilesButton"), selectFolderButton: $("#selectFolderButton"), pasteUploadButton: $("#pasteUploadButton"), clearUploadButton: $("#clearUploadButton"),
     uploadList: $("#uploadList"), removeMetadataButton: $("#removeMetadataButton"), uploadStatus: $("#uploadStatus"), uploadProgress: $("#uploadProgress"),
-    downloadList: $("#downloadList"), readyCount: $("#readyCount"), downloadZipButton: $("#downloadZipButton"), downloadStatus: $("#downloadStatus"), downloadProgress: $("#downloadProgress"),
+    downloadList: $("#downloadList"), readyCount: $("#readyCount"), downloadSelectedButton: $("#downloadSelectedButton"), downloadZipButton: $("#downloadZipButton"), downloadStatus: $("#downloadStatus"), downloadProgress: $("#downloadProgress"),
     inspectDropZone: $("#inspectDropZone"), inspectFileInput: $("#inspectFileInput"), inspectPasteButton: $("#inspectPasteButton"), inspectResultTitle: $("#inspectResultTitle"), inspectImage: $("#inspectImage"), inspectImageEmpty: $("#inspectImageEmpty")
   };
 
@@ -76,11 +76,14 @@
   function updateControls(){
     const hasUploads = state.uploads.length > 0;
     const hasReady = state.ready.length > 0;
+    const hasSelectedReady = state.ready.some(item => item.id === state.selectedReadyId);
+
     el.removeMetadataButton.disabled = state.busy || !hasUploads;
     el.clearUploadButton.disabled = state.busy || !hasUploads;
     el.fileInput.disabled = state.busy;
     el.folderInput.disabled = state.busy;
     el.pasteUploadButton.disabled = state.busy;
+    el.downloadSelectedButton.disabled = !hasSelectedReady;
     el.downloadZipButton.disabled = !hasReady;
   }
 
@@ -105,6 +108,7 @@
   el.clearUploadButton.addEventListener("click",()=>{state.uploads.forEach(i=>revoke(i.url));state.uploads=[];el.uploadProgress.value=0;el.uploadStatus.textContent="대기 중";render();});
 
   el.downloadList.addEventListener("click",e=>{const download=e.target.closest("[data-download-ready]");if(download){e.stopPropagation();const item=state.ready.find(i=>i.id===download.dataset.downloadReady);if(item)downloadBlob(item.blob,outputName(item.name));return;}const target=e.target.closest("[data-ready-id]");if(target){const item=state.ready.find(i=>i.id===target.dataset.readyId);if(item){state.selectedReadyId=item.id;inspectReady(item);renderDownloads();updateControls();}}});
+  el.downloadSelectedButton.addEventListener("click",()=>{const item=state.ready.find(i=>i.id===state.selectedReadyId);if(item)downloadBlob(item.blob,outputName(item.name));});
   el.downloadZipButton.addEventListener("click",downloadAll);
 
   el.inspectFileInput.addEventListener("change",e=>{const file=e.target.files?.[0];if(file)setInspectBlob(file,file.name);e.target.value="";});
